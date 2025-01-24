@@ -10,7 +10,7 @@ function App() {
   return (
     <Provider store={store}>
       <Layout>
-        <Router>
+        <Router basename="/travel-app">
           <Routes>
             <Route path="/" element={<MainPage />} />
             <Route path="/post/${id}" element={<div></div>} />
