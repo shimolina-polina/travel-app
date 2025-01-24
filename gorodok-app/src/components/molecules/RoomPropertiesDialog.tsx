@@ -8,7 +8,7 @@ import { RootState } from '../../store/store';
 import { setAdultsCount, setChildrenCount } from "../../store/filtersSlice";
 import { IRoomPropertiesDialogProps } from "../../interfaces/molecules/RoomFlightPropertiesDialog/IRoomPropertiesDialogProps";
 import { IFiltersSlice } from "../../interfaces/store/filtersSlice/IFiltersSlice";
-
+import { pluralizeGuest } from "../../utils/pluralizeGuest";
 
 
 
@@ -29,12 +29,14 @@ const RoomPropertiesDialog: FC<IRoomPropertiesDialogProps> = ({width}) => {
         const newValue = parseInt(event.target.value);
         if (!isNaN(newValue) && newValue >= 1) {
             dispatch(setAdultsCount(newValue));
-        } else if (event.target.value === "") {
+            setPeopleCount(newValue + filters.childrenCount)
+        } else if (event.target.value === "" || newValue === 0) {
             dispatch(setAdultsCount(1));
+            setPeopleCount(1 + filters.childrenCount);
+        } else {
+            setPeopleCount(1 + filters.childrenCount);
         }
-        setPeopleCount(filters.adultsCount + filters.childrenCount)
-
-      };
+    };
 
     const handleIncrementAdults = () => {
         setPeopleCount(filters.adultsCount + filters.childrenCount + 1)
@@ -52,10 +54,13 @@ const RoomPropertiesDialog: FC<IRoomPropertiesDialogProps> = ({width}) => {
     const newValue = parseInt(event.target.value);
     if (!isNaN(newValue) && newValue >= 0) {
         dispatch(setChildrenCount(newValue));
-    } else if (event.target.value === "") {
+        setPeopleCount(filters.adultsCount + newValue)
+    } else if (event.target.value === "" || newValue < 0) {
+        dispatch(setChildrenCount(0));
+        setPeopleCount(filters.adultsCount + 0)
+    } else {
         dispatch(setChildrenCount(0));
     }
-    setPeopleCount(filters.adultsCount + filters.childrenCount)
     };
 
     const handleIncrementChildren = () => {
@@ -80,7 +85,7 @@ const RoomPropertiesDialog: FC<IRoomPropertiesDialogProps> = ({width}) => {
     <Box>
         <TextField 
             label="Номер для "
-            value={peopleCount + " гостя"}
+            value={peopleCount + " " + pluralizeGuest(peopleCount)}
             sx={{width: width}}
             slotProps={{
             input: {

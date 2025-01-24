@@ -1,7 +1,7 @@
 {
   "name": "gorodok-app",
   "version": "0.1.0",
-  "homepage": "http://shimolina-polina.github.io/travel-app",
+  "homepage": "https://shimolina-polina.github.io/travel-app/",
   "private": true,
   "dependencies": {
     "@emotion/react": "^11.14.0",
