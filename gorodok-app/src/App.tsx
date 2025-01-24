@@ -4,7 +4,7 @@ import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import MainPage from './components/pages/MainPage/MainPage';
 import Layout from './components/organisms/Layout';
 import { Provider } from 'react-redux';
-import { store } from './store/store'; // Your Redux store
+import { store } from './store/store';
 
 function App() {
   return (
