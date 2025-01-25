@@ -1,4 +1,4 @@
-import React, { FC } from "react"
+import React, { FC, useEffect } from "react"
 import ComboBox from "../atoms/ComboBox"
 import { useDispatch, useSelector } from "react-redux";
 import { setLocation } from "../../store/filtersSlice";
@@ -14,16 +14,20 @@ const CitySelector: FC<{width?: number | string}> = ({width}) => {
       })
 
     const dispatch = useDispatch();
-    const filters: IFiltersSlice = useSelector((state: RootState) => state.filters);
+    const filters: IFiltersSlice = useSelector((state: RootState) => state.filtersReducer);
     
     const handleChangeValue = (newValue: IComboBoxOption | null) => {
         const selectedValue: ICity | null = cities.find(obj => obj.id === newValue?.id) || null;
         dispatch(setLocation(selectedValue))
     }
 
+    useEffect(() => {
+        console.log(filters)
+    }, [])
+
     return (
     <ComboBox
-        value={comboBoxOptions.find(item => item.id === filters.location?.id)}
+        value={comboBoxOptions.find(item => item.id === filters.location?.id) || null}
         label="Направление"
         options={comboBoxOptions}
         width={width}

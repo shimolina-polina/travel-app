@@ -2,15 +2,8 @@ import { Box, Typography, Paper, Grid2, Link, Alert } from "@mui/material";
 import React from "react";
 import { CitySelector, RoomPropertiesDialog } from "../molecules/molecules";
 import { CustomDateRangePicker, CustomButton } from '../atoms/atoms';
-import { useSelector } from "react-redux";
-import { IFiltersSlice } from "../../interfaces/store/filtersSlice/IFiltersSlice";
-import { RootState } from "../../store/store";
-import { useNavigate } from "react-router-dom";
 
 const FiltersSelector = () => {
-    const filters: IFiltersSlice = useSelector((state: RootState) => state.filters);
-    let navigate = useNavigate();
-
     return (
         <Box
             sx={{

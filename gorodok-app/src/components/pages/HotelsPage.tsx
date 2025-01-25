@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { hotels } from "../../data/hotels";
 import { useSelector } from "react-redux";
 import { IFiltersSlice } from "../../interfaces/store/filtersSlice/IFiltersSlice";
@@ -8,11 +8,12 @@ import { Box, Grid2, Typography } from "@mui/material";
 import { pluralizeVariants } from "../../utils/pluralizeVariants";
 
 const HotelsPage = () => {
-  const filters: IFiltersSlice = useSelector((state: RootState) => state.filters);
+  const filters: IFiltersSlice = useSelector((state: RootState) => state.filtersReducer);
 
   const filteredHotels = hotels.filter(
     (hotel) => hotel.city === filters.location?.name
   );
+  useEffect(() => {console.log(filters)}, [])
 
   const resultHotels = filteredHotels.length === 0? hotels: filteredHotels
 

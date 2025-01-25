@@ -19,7 +19,7 @@ const RoomPropertiesDialog: FC<IRoomPropertiesDialogProps> = ({width}) => {
     const isPopoverOpen = Boolean(anchorEl);
 
     const dispatch = useDispatch();
-    const filters: IFiltersSlice = useSelector((state: RootState) => state.filters);
+    const filters: IFiltersSlice = useSelector((state: RootState) => state.filtersReducer);
 
     const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
         setAnchorEl(event.currentTarget);

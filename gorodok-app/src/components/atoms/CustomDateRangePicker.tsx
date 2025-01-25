@@ -9,7 +9,7 @@ import { IFiltersSlice } from "../../interfaces/store/filtersSlice/IFiltersSlice
 
 const CustomDateRangePicker = () => {
     const dispatch = useDispatch();
-    const filters: IFiltersSlice = useSelector((state: RootState) => state.filters);
+    const filters: IFiltersSlice = useSelector((state: RootState) => state.filtersReducer);
 
     return (
         <LocalizationProvider dateAdapter={AdapterDayjs}>
