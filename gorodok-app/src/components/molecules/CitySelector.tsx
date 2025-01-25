@@ -15,11 +15,9 @@ const CitySelector: FC<{width?: number | string}> = ({width}) => {
 
     const dispatch = useDispatch();
     const filters: IFiltersSlice = useSelector((state: RootState) => state.filters);
-
-    const MoscowLocation: ICity | null = cities.find(city => city.id === 1) || null;
     
     const handleChangeValue = (newValue: IComboBoxOption | null) => {
-        const selectedValue: ICity | null = newValue !== null? cities.find(obj => obj.id === newValue.id) || MoscowLocation : MoscowLocation;
+        const selectedValue: ICity | null = cities.find(obj => obj.id === newValue?.id) || null;
         dispatch(setLocation(selectedValue))
     }
 

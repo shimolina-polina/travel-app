@@ -1,9 +1,16 @@
-import { Box, Typography, Paper, Grid2 } from "@mui/material";
+import { Box, Typography, Paper, Grid2, Link, Alert } from "@mui/material";
 import React from "react";
 import { CitySelector, RoomPropertiesDialog } from "../molecules/molecules";
 import { CustomDateRangePicker, CustomButton } from '../atoms/atoms';
+import { useSelector } from "react-redux";
+import { IFiltersSlice } from "../../interfaces/store/filtersSlice/IFiltersSlice";
+import { RootState } from "../../store/store";
+import { useNavigate } from "react-router-dom";
 
 const FiltersSelector = () => {
+    const filters: IFiltersSlice = useSelector((state: RootState) => state.filters);
+    let navigate = useNavigate();
+
     return (
         <Box
             sx={{
@@ -45,9 +52,11 @@ const FiltersSelector = () => {
                             <CustomDateRangePicker />
                         </Grid2>
                         <Grid2 size={{xs:12, md:2}}>
-                            <CustomButton width="100%" height={56} color="#fc6c6c">
-                                Найти
-                            </CustomButton>
+                            <Link href="hotels/">
+                                <CustomButton width="100%" height={56} color="#fc6c6c">
+                                    Найти
+                                </CustomButton>
+                            </Link>
                         </Grid2>
                     </Grid2>
                 </Paper>     

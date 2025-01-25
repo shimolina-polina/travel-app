@@ -3,6 +3,7 @@ import { Dayjs } from 'Dayjs';
 import { DateRange } from '@mui/x-date-pickers-pro/models';
 import { IFiltersSlice } from '../interfaces/store/filtersSlice/IFiltersSlice';
 import { ICity } from '../interfaces/data/cities/ICity';
+import { cities } from '../data/cities';
 
 
 const initialState: IFiltersSlice = {

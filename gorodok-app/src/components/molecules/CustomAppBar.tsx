@@ -53,9 +53,11 @@ const CustomAppBar = () => {
                     >
                         <MenuIcon />
                     </IconButton>
-                    <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-                        Городок!
-                    </Typography>
+                    <Link href="/travel-app/" sx={{ flexGrow: 1 }} underline="none" color="inherit">
+                      <Typography variant="h6" component="div" >
+                          Городок!
+                      </Typography>
+                    </Link>
                     <LoginButton/>
                 </Toolbar>
             </AppBar>

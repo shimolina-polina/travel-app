@@ -20,11 +20,7 @@ const BlogCard: FC<IBlogCardProps> = ({post}) => {
 
     return (
         <Card elevation={0} sx={{ display: 'flex', flexDirection: 'column', height: '100%', backgroundColor: "inherit", borderRadius: 0}} >
-            <StyledCardActionArea 
-                sx={{ flexGrow: 1 }}
-                
-                onClick={()=>{console.log(`card`)}}
-            >
+            <StyledCardActionArea sx={{ flexGrow: 1 }}>
                 <CardContent sx={{ padding: 0, marginTop: 0 }}>
                     <Typography gutterBottom variant="h5" component="div">
                         {post.title}
