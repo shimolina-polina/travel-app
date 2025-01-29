@@ -6,6 +6,7 @@ import { RootState } from "../../store/store";
 import HotelCard from "../molecules/HotelCard";
 import { Box, Grid2, Typography } from "@mui/material";
 import { pluralizeVariants } from "../../utils/pluralizeVariants";
+import SideBar from "../organisms/SideBar";
 
 const HotelsPage = () => {
   const filters: IFiltersSlice = useSelector((state: RootState) => state.filtersReducer);
@@ -29,7 +30,7 @@ const HotelsPage = () => {
           <Box sx={{maxWidth: 1500, marginBottom: 3, width: '100%'}}>
             <Grid2 container>
               <Grid2 size={2}>
-
+                <SideBar/>
               </Grid2>
               <Grid2 size={10}>
               <Box sx={{marginY: 2}}>

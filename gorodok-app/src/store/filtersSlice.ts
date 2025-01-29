@@ -1,13 +1,11 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { Dayjs } from 'Dayjs';
+import dayjs, { Dayjs } from 'dayjs';
 import { DateRange } from '@mui/x-date-pickers-pro/models';
 import { IFiltersSlice } from '../interfaces/store/filtersSlice/IFiltersSlice';
 import { ICity } from '../interfaces/data/cities/ICity';
-import { cities } from '../data/cities';
-
 
 const initialState: IFiltersSlice = {
-    dateRange: undefined,
+    dateRange: [dayjs().add(1, 'day').format('YYYY-MM-DD'), dayjs().add(2, 'day').format('YYYY-MM-DD')],
     childrenCount: 0,
     adultsCount: 1,
     location: null,
@@ -17,7 +15,7 @@ const initialState: IFiltersSlice = {
     name: 'filters',
     initialState,
     reducers: {
-      setDateRange: (state: IFiltersSlice, action: PayloadAction<DateRange<Dayjs> | undefined>) => {
+      setDateRange: (state: IFiltersSlice, action: PayloadAction<[string, string]>) => {
         state.dateRange = action.payload;
       },
       setChildrenCount: (state: IFiltersSlice, action: PayloadAction<number>) => {
@@ -30,7 +28,7 @@ const initialState: IFiltersSlice = {
         state.location = action.payload;
       },
       clearFilters: (state: IFiltersSlice) => {
-        state.dateRange = undefined;
+        state.dateRange = [dayjs().add(1, 'day').format('YYYY-MM-DD'), dayjs().add(2, 'day').format('YYYY-MM-DD')];
         state.childrenCount = 0;
         state.adultsCount = 1;
         state.location = null;
