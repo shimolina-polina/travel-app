@@ -10,6 +10,7 @@ import SideBar from "../organisms/SideBar";
 import { IComboBoxOption } from "../../interfaces/atoms/ComboBox/IComboBoxOption";
 import { pluralizeStars } from "../../utils/pluralizeStars";
 import CloseIcon from '@mui/icons-material/Close';
+import { IHotel } from "../../interfaces/data/hotels/hotels";
 
 const HotelsPage = () => {
   const filters: IFiltersSlice = useSelector((state: RootState) => state.filtersReducer);
@@ -24,9 +25,38 @@ const HotelsPage = () => {
   const minCost = Math.min(...hotels.filter(hotel => hotel.city === filters.location?.name).map(hotel => hotel.costPerNightDollars))
   const maxCost = Math.max(...hotels.filter(hotel => hotel.city === filters.location?.name).map(hotel => hotel.costPerNightDollars))
 
+  const sortOptions = 
+  [
+    {id: 1, title: "По популярности"}, 
+    {id: 2, title: "Сначала дешевые"}, 
+    {id: 3, title: "Сначала дорогие"}
+  ];
+
   const [priceRange, setPriceRange] = useState<number[]>([minCost, maxCost]);
   const [stars, setStars] = useState<number[]>([]);
   const [sortType, setSortType] = useState<IComboBoxOption | null>({id: 1, title: "По популярности"});
+  const [sortedHotels, setSortedHotels] = useState<IHotel[]>(resultHotels);
+
+  useEffect(() => {
+    let sorted;
+  
+    switch (sortType?.id) {
+      case 1:
+        sorted = [...resultHotels].sort((a, b) => a.name.localeCompare(b.name));
+        break;
+      case 2:
+        sorted = [...resultHotels].sort((a, b) => a.costPerNightDollars - b.costPerNightDollars);
+        break;
+      case 3:
+        sorted = [...resultHotels].sort((a, b) => b.costPerNightDollars - a.costPerNightDollars);
+        break;
+      default:
+        sorted = resultHotels;
+        break;
+    }
+  
+    setSortedHotels(sorted);
+  }, [sortType]);
 
   const handleDeleteRange = () => {
     setPriceRange([minCost, maxCost])
@@ -54,6 +84,7 @@ const HotelsPage = () => {
                     sortType={sortType}
                     minCost={minCost}
                     maxCost={maxCost}
+                    sortOptions={sortOptions}
                   />
                 </Box>
               </Grid2>
@@ -87,7 +118,7 @@ const HotelsPage = () => {
                 
               </Box>
             <Grid2 container spacing={2}>
-            {resultHotels.map((hotel) => (
+            {sortedHotels.map((hotel) => (
                 <Grid2 size={12}>
                   <HotelCard key={hotel.name} hotel={hotel} />
                 </Grid2>

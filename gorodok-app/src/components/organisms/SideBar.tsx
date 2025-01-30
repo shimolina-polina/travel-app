@@ -21,9 +21,10 @@ interface IFilters {
     sortType: IComboBoxOption | null;
     minCost: number;
     maxCost: number;
+    sortOptions: IComboBoxOption[];
 }
 
-const SideBar: FC<IFilters> = ({setPriceRange, priceRange, setStars, stars, setSortType, sortType, minCost, maxCost}) => {
+const SideBar: FC<IFilters> = ({setPriceRange, priceRange, setStars, stars, setSortType, sortType, minCost, maxCost, sortOptions}) => {
     const filters: IFiltersSlice = useSelector((state: RootState) => state.filtersReducer);
 
     const handleChangeSlider = (_event: Event, newValue: number | number[]) => {
@@ -65,11 +66,7 @@ const SideBar: FC<IFilters> = ({setPriceRange, priceRange, setStars, stars, setS
                         label={""}
                         value={sortType}
                         size="small"
-                        options={[
-                            {id: 1, title: "По популярности"}, 
-                            {id: 2, title: "Сначала дешевые"}, 
-                            {id: 3, title: "Сначала дорогие"}
-                        ]} 
+                        options={sortOptions} 
                         onChange={(newValue: IComboBoxOption | null) => {
                                 setSortType(newValue);
                         }}
