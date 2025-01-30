@@ -6,6 +6,9 @@ import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp';
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import { IUserData } from "../../interfaces/molecules/LoginButton/IUserData";
 import { IUserDataAction, UserDataType } from "../../interfaces/molecules/LoginButton/IUserDataAction";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "../../store/store";
+import { setIsAuthenticated } from "../../store/authSlice";
 
 const userDataReducer = (state: IUserData, action: IUserDataAction): IUserData => {
   switch (action.type) {
@@ -19,7 +22,11 @@ const userDataReducer = (state: IUserData, action: IUserDataAction): IUserData =
 }
 
 const LoginButton = () => {
-    const [userData, dispatch] = useReducer(userDataReducer, {
+
+    const dispatch = useDispatch();
+    const isAuthenticated: boolean = useSelector((state: RootState) => state.authReducer.isAuthenticated);
+
+    const [userData, setUserData] = useReducer(userDataReducer, {
         login: "",
         password: ""
       })
@@ -29,27 +36,39 @@ const LoginButton = () => {
     const handleLoginOpen = () => {
         setIsLoginDialogOpen(true);
     }
+
+    const handleLogout = () => {
+      dispatch(setIsAuthenticated(false))
+    }
     
-      const handleLoginClose = () => {
+    const handleLoginClose = () => {
         setIsLoginDialogOpen(false);
-        dispatch({type: UserDataType.setLogin, payload: ""})
-        dispatch({type: UserDataType.setPassword, payload: ""})
     };
     
       const handleLogin = () => {
-        console.log("Добро пожаловать, " + userData.login)
+        dispatch(setIsAuthenticated(true))
+        setIsLoginDialogOpen(false);
     };
 
     return (
         <>
+        {!isAuthenticated? 
         <CustomButton 
-        color="#374785" 
-        startIcon={<AccountCircleIcon />} 
-        endIcon={isLoginDialogOpen? <ArrowDropUpIcon /> : <ArrowDropDownIcon/>} 
-        onClick={handleLoginOpen}
-      >
-          Войти
-      </CustomButton>
+          color="#374785" 
+          startIcon={<AccountCircleIcon />} 
+          endIcon={isLoginDialogOpen? <ArrowDropUpIcon /> : <ArrowDropDownIcon/>} 
+          onClick={handleLoginOpen}
+        >
+            Войти
+        </CustomButton>
+        :
+        <CustomButton 
+          color="#374785" 
+          onClick={handleLogout}
+        >
+            Выйти
+        </CustomButton>
+      }
       <Dialog open={isLoginDialogOpen} onClose={handleLoginClose}>
           <DialogTitle>Вход</DialogTitle>
           <DialogContent>

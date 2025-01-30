@@ -1,5 +1,5 @@
 import { DateRange } from "@mui/x-date-pickers-pro";
-import { Dayjs } from "Dayjs";
+import { Dayjs } from "dayjs";
 import { createContext, useContext, useState } from "react";
 import React from "react";
 import { ICity } from "../interfaces/data/cities/ICity";
