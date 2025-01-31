@@ -20,7 +20,7 @@ const CustomAppBar = () => {
         >
           <List>
             <ListItem disablePadding>
-              <ListItemButton component={Link} href="/">
+              <ListItemButton component={Link} href="about/">
                 <ListItemText primary="О нас" />
               </ListItemButton>
             </ListItem>

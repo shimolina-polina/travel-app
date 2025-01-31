@@ -11,6 +11,7 @@ import storage from 'redux-persist/lib/storage';
 import { configureStore, combineReducers } from '@reduxjs/toolkit';
 import { filtersReducer } from './store/store'
 import { PersistGate } from 'redux-persist/integration/react';
+import AboutPage from './components/pages/AboutPage';
 
 
 function App() {
@@ -23,6 +24,7 @@ function App() {
             <Routes>
               <Route path="/" element={<MainPage />} />
               <Route path="hotels" element={<HotelsPage />} />
+              <Route path="about" element={<AboutPage />} />
               <Route path="*" element={<div>404: Page Not Found</div>} />
             </Routes>
           </Router>
