@@ -1,22 +1,29 @@
-import { AppBar, Box, Drawer, IconButton, Link, List, ListItem, ListItemButton, ListItemText, Toolbar, Typography } from "@mui/material"
+import { AppBar, Box, Drawer, IconButton, Link, List, ListItem, ListItemButton, ListItemText, Popover, Toolbar, Typography } from "@mui/material"
 import React, { useState } from "react"
 import MenuIcon from "@mui/icons-material/Menu";
 import { LoginButton } from "./molecules";
 
 
 const CustomAppBar = () => {
-    const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
+    const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
 
-    const toggleDrawer = (open: boolean) => () => {
-    setIsMenuOpen(open);
+    const handleClick = (event: React.MouseEvent<HTMLElement>) => {
+        setAnchorEl(event.currentTarget);
     };
+
+    const handleClose = () => {
+        setAnchorEl(null);
+    };
+
+    const isMenuOpen = Boolean(anchorEl);
+
     
     const menuItems = (
         <Box
           sx={{ width: 250 }}
           role="presentation"
-          onClick={toggleDrawer(false)}
-          onKeyDown={toggleDrawer(false)}
+          onClick={handleClose}
+          onKeyDown={handleClose}
         >
           <List>
             <ListItem disablePadding>
@@ -49,7 +56,7 @@ const CustomAppBar = () => {
                         color="inherit"
                         aria-label="menu"
                         sx={{ mr: 2 }}
-                        onClick={toggleDrawer(true)}
+                        onClick={handleClick}
                     >
                         <MenuIcon />
                     </IconButton>
@@ -61,9 +68,26 @@ const CustomAppBar = () => {
                     <LoginButton/>
                 </Toolbar>
             </AppBar>
-            <Drawer open={isMenuOpen} onClose={toggleDrawer(false)}>
+            <Popover
+                open={isMenuOpen}
+                anchorEl={anchorEl}
+                onClose={handleClose}
+                sx={{
+                  '& .MuiPaper-root': { // Обращаемся к внутреннему элементу Paper
+                      borderRadius: 3, // Убираем скругление
+                  },
+              }}
+                anchorOrigin={{
+                    vertical: 'bottom',
+                    horizontal: 'left',
+                }}
+                transformOrigin={{
+                    vertical: 'top',
+                    horizontal: 'left',
+                }}
+            >
                 {menuItems}
-            </Drawer>
+            </Popover>
         </Box>
 )
 }
