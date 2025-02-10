@@ -1,7 +1,7 @@
 import { Paper, Box, Grid2, Typography, Divider, Link } from "@mui/material"
 import React from "react"
-import FacebookIcon from '@mui/icons-material/Facebook';
-import TwitterIcon from '@mui/icons-material/Twitter';
+import TelegramIcon from '@mui/icons-material/Telegram';
+import InstagramIcon from '@mui/icons-material/Instagram';
 
 const Footer = () => {
     return (
@@ -13,11 +13,11 @@ const Footer = () => {
                 </Grid2>
                 <Grid2 size={{xs:12, md: 4}}>
                     <Typography>Наши социальные сети</Typography>
-                    <Link href="#" color="inherit" sx={{ mr: 2 }}>
-                      <FacebookIcon />
+                    <Link href="https://t.me/gorodok_travel" color="inherit" sx={{ mr: 2 }}>
+                      <TelegramIcon />
                     </Link>
                     <Link href="#" color="inherit">
-                        <TwitterIcon />
+                        <InstagramIcon />
                     </Link>
                 </Grid2>
                 <Grid2 size={{xs:12, md: 3}}>
