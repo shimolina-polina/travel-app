@@ -1,11 +1,10 @@
-import { Box, Card, CardActionArea, CardContent, Grid2, IconButton, Typography } from "@mui/material";
+import { Box, Card, CardActionArea, CardContent, Chip, Grid2, IconButton, Typography } from "@mui/material";
 import React, { FC, useState } from "react";
 import { IHotel } from "../../interfaces/data/hotels/hotels";
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import { styled } from '@mui/material/styles';
 import Stars from "../atoms/Stars";
-import { hotels } from '../../data/hotels';
 import { useSelector } from "react-redux";
 import { RootState } from "../../store/store";
 
@@ -55,6 +54,10 @@ const HotelCard:FC<{hotel: IHotel}> = ({hotel}) => {
                             <Typography gutterBottom variant="h5" component="div">
                                 {hotel.name}
                             </Typography>
+                            <Typography variant="h6">
+                                {hotel.city}
+                            </Typography>
+                            <Chip sx={{borderRadius: 2}} label={`${hotel.costPerNightDollars}$ за ночь`}/>                            
                             <Typography variant="body1">
                                 {hotel.description}
                             </Typography>

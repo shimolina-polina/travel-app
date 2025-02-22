@@ -9,54 +9,76 @@ import { pluralizeVariants } from "../../utils/pluralizeVariants";
 import SideBar from "../organisms/SideBar";
 import { IComboBoxOption } from "../../interfaces/atoms/ComboBox/IComboBoxOption";
 import { pluralizeStars } from "../../utils/pluralizeStars";
-import CloseIcon from '@mui/icons-material/Close';
 import { IHotel } from "../../interfaces/data/hotels/hotels";
+import { Title } from "@mui/icons-material";
 
 const HotelsPage = () => {
   const filters: IFiltersSlice = useSelector((state: RootState) => state.filtersReducer);
 
+  const [resultHotels, setResultHotels] = useState<IHotel[]>([]);
+
   const filteredHotels = hotels.filter(
     (hotel) => hotel.city === filters.location?.name
   );
-  useEffect(() => {console.log(filters)}, [])
-
-  const resultHotels = filteredHotels.length === 0? hotels: filteredHotels
-
-  const minCost = Math.min(...hotels.filter(hotel => hotel.city === filters.location?.name).map(hotel => hotel.costPerNightDollars))
-  const maxCost = Math.max(...hotels.filter(hotel => hotel.city === filters.location?.name).map(hotel => hotel.costPerNightDollars))
 
   const sortOptions = 
   [
     {id: 1, title: "По популярности"}, 
     {id: 2, title: "Сначала дешевые"}, 
-    {id: 3, title: "Сначала дорогие"}
+    {id: 3, title: "Сначала дорогие"},
+    {id: 4, title: "Сначала 5 звезд"},
+    {id: 5, title: "Сначала 1 звезда"},
   ];
+
+  const minCost = hotels.filter(hotel => hotel.city === filters.location?.name).length > 0? 
+    Math.min(...hotels.filter(hotel => hotel.city === filters.location?.name).map(hotel => hotel.costPerNightDollars))
+    :
+    Math.min(...hotels.map(hotel => hotel.costPerNightDollars))
+
+  const maxCost = hotels.filter(hotel => hotel.city === filters.location?.name).length > 0?
+    Math.max(...hotels.filter(hotel => hotel.city === filters.location?.name).map(hotel => hotel.costPerNightDollars))
+    :
+    Math.max(...hotels.map(hotel => hotel.costPerNightDollars))
 
   const [priceRange, setPriceRange] = useState<number[]>([minCost, maxCost]);
   const [stars, setStars] = useState<number[]>([]);
   const [sortType, setSortType] = useState<IComboBoxOption | null>({id: 1, title: "По популярности"});
-  const [sortedHotels, setSortedHotels] = useState<IHotel[]>(resultHotels);
 
   useEffect(() => {
-    let sorted;
-  
+    let filtered;
+    if (filteredHotels.length > 0) {
+      filtered = filteredHotels;
+    } else {
+      filtered = hotels;
+    }
+
     switch (sortType?.id) {
       case 1:
-        sorted = [...resultHotels].sort((a, b) => a.name.localeCompare(b.name));
+        filtered = [...filtered].sort((a, b) => a.name.localeCompare(b.name));
         break;
       case 2:
-        sorted = [...resultHotels].sort((a, b) => a.costPerNightDollars - b.costPerNightDollars);
+        filtered = [...filtered].sort((a, b) => a.costPerNightDollars - b.costPerNightDollars);
         break;
       case 3:
-        sorted = [...resultHotels].sort((a, b) => b.costPerNightDollars - a.costPerNightDollars);
+        filtered = [...filtered].sort((a, b) => b.costPerNightDollars - a.costPerNightDollars);
+        break;
+      case 4:
+        filtered = [...filtered].sort((a, b) => b.stars - a.stars);
+        break;
+      case 5:
+        filtered = [...filtered].sort((a, b) => a.stars - b.stars);
         break;
       default:
-        sorted = resultHotels;
         break;
     }
-  
-    setSortedHotels(sorted);
-  }, [sortType]);
+
+    if (stars.length > 0) {
+      filtered = filtered.filter(s => stars.includes(s.stars))
+    }
+    filtered = filtered.filter(f => f.costPerNightDollars <= priceRange[1] && f.costPerNightDollars >= priceRange[0])
+
+    setResultHotels(filtered);
+  }, [sortType, stars, priceRange[0], priceRange[1]]);
 
   const handleDeleteRange = () => {
     setPriceRange([minCost, maxCost])
@@ -96,9 +118,18 @@ const HotelsPage = () => {
                     <Typography variant="h6">Возможно вам понравятся другие варианты</Typography>
                   </>
                 )}
-                {filteredHotels.length > 0 && (
-                  <Typography variant="h5">{pluralizeVariants(filteredHotels.length)}</Typography>
+
+                {resultHotels.length === 0 && (
+                  <>
+                    <Typography variant="h5">К сожалению, под ваши критерии не подходит ни один отель.</Typography>
+                    <Typography variant="h6">Попробуйте отменить по крайней мере один из примененных фильтров</Typography>
+                  </>
                 )}
+
+                {filteredHotels.length > 0 && (
+                  <Typography variant="h5">{pluralizeVariants(resultHotels.length)}</Typography>
+                )}
+
                 {(stars.length > 0 || priceRange[0] !== minCost || priceRange[1] !== maxCost) &&
                 <>
                   <Typography variant="h6" sx={{marginY: 1}}>Примененные фильтры:</Typography>
@@ -117,12 +148,12 @@ const HotelsPage = () => {
                 }
                 
               </Box>
-            <Grid2 container spacing={2}>
-            {sortedHotels.map((hotel) => (
-                <Grid2 size={12}>
-                  <HotelCard key={hotel.name} hotel={hotel} />
-                </Grid2>
-              ))}
+              <Grid2 container spacing={2}>
+                {resultHotels.map((hotel) => (
+                  <Grid2 size={12} key={hotel.name}>
+                    <HotelCard key={hotel.name} hotel={hotel} />
+                  </Grid2>
+                ))}
             </Grid2>
               </Grid2>
             </Grid2>
