@@ -10,7 +10,7 @@ const Offer = () => {
                     <Grid2 container spacing={0} alignItems="center">
                         <Grid2 size={{xs:12, sm:4, md:3}} sx={{ display: 'flex', justifyContent: 'center', overflow: 'hidden' }}> 
                             <img
-                                src="./1737722549963.png"
+                                src="/1737722549963.png"
                                 alt="Offer Image"
                                 loading="lazy"
                                 style={{ maxWidth: '100%', height: 'auto', display: 'block', objectFit: 'cover', }}
