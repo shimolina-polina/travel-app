@@ -8,6 +8,7 @@ export interface ICustomButtonProps {
     color?: string;
     startIcon?: React.ReactNode;
     endIcon?: React.ReactNode;
-    onClick?: (event?: React.MouseEvent<HTMLButtonElement>) => void;
+    fullWidth?: boolean;
+    onClick?: (event?: React.MouseEvent<HTMLButtonElement> | React.MouseEvent<HTMLElement>) => void;
   }
   

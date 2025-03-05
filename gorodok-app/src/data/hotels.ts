@@ -8,7 +8,7 @@ export const hotels: IHotel[] = [
       address: "ул. Лесная, 12",
       phone: "+7 (999) 123-45-67",
       email: "info@norahotel.ru",
-      image: process.env.PUBLIC_URL + "/hotels/1737802055259.png",
+      image: "/hotels/1737802055259.png",
       costPerNightDollars: 25 
     },
     {
@@ -19,7 +19,7 @@ export const hotels: IHotel[] = [
       address: "шоссе Полевое, 5",
       phone: "+7 (987) 654-32-10",
       email: "booking@flowerhotel.ru",
-      image: process.env.PUBLIC_URL + "/hotels/1737802264881.png",
+      image: "/hotels/1737802264881.png",
       costPerNightDollars: 30
     },
     {
@@ -30,7 +30,7 @@ export const hotels: IHotel[] = [
       address: "пер. Степной, 3",
       phone: "+7 (911) 222-33-44",
       email: "steppe@hotel.ru",
-      image: process.env.PUBLIC_URL + "/hotels/1737805875742.png",
+      image: "/hotels/1737805875742.png",
       costPerNightDollars: 10
     },
     {
@@ -41,7 +41,7 @@ export const hotels: IHotel[] = [
       address: "ул. Парковая, 1",
       phone: "+7 (903) 555-66-77",
       email: "estate@hillhotel.ru",
-      image: process.env.PUBLIC_URL + "/hotels/1737805937701.png",
+      image: "/hotels/1737805937701.png",
       costPerNightDollars: 500
     },
     {
@@ -52,7 +52,7 @@ export const hotels: IHotel[] = [
       address: "тракт Дальний, 7",
       phone: "+7 (926) 777-88-99",
       email: "travel@winds.ru",
-      image: process.env.PUBLIC_URL + '/hotels/1737808618093.png',
+      image: '/hotels/1737808618093.png',
       costPerNightDollars: 100
     },
     {
@@ -63,7 +63,7 @@ export const hotels: IHotel[] = [
       address: "ул. Березовая, 10",
       phone: "+7 (965) 999-00-11",
       email: "birch@grove.ru",
-      image: process.env.PUBLIC_URL + '/hotels/1737808686447.png',
+      image: '/hotels/1737808686447.png',
       costPerNightDollars: 35
     },
     {
@@ -74,7 +74,7 @@ export const hotels: IHotel[] = [
       address: "ул. Полевая, 2",
       phone: "+7 (916) 111-22-33",
       email: "sun@bunny.ru",
-      image: process.env.PUBLIC_URL + '/hotels/1737808744427.png',
+      image: '/hotels/1737808744427.png',
       costPerNightDollars: 15
     },
     {
@@ -85,7 +85,7 @@ export const hotels: IHotel[] = [
       address: "пер. Луговой, 4",
       phone: "+7 (985) 444-55-66",
       email: "meadow@wind.ru",
-      image: process.env.PUBLIC_URL + '/hotels/1737808725972.png',
+      image: '/hotels/1737808725972.png',
       costPerNightDollars: 90
     },
     {
@@ -96,7 +96,7 @@ export const hotels: IHotel[] = [
       address: "шоссе Чистопольское, 8",
       phone: "+7 (925) 333-44-55",
       email: "gold@ear.ru",
-      image: process.env.PUBLIC_URL + '/hotels/1737808924639.png',
+      image: '/hotels/1737808924639.png',
       costPerNightDollars: 180
     },
     {
@@ -107,7 +107,7 @@ export const hotels: IHotel[] = [
       address: "ул. Степная, 6",
       phone: "+7 (905) 222-11-00",
       email: "pearl@steppe.ru",
-      image: process.env.PUBLIC_URL + '/hotels/1737813935586.png',
+      image: '/hotels/1737813935586.png',
       costPerNightDollars: 15
     },
     {
@@ -118,7 +118,7 @@ export const hotels: IHotel[] = [
       address: "пер. Васильковый, 9",
       phone: "+7 (963) 888-77-66",
       email: "cornflower@field.ru",
-      image: process.env.PUBLIC_URL + '/hotels/1737813978487.png',
+      image: '/hotels/1737813978487.png',
       costPerNightDollars: 15
     },
     {
@@ -129,7 +129,7 @@ export const hotels: IHotel[] = [
       address: "тракт Бескрайний, 11",
       phone: "+7 (915) 777-66-55",
       email: "eagle@flight.ru",
-      image: process.env.PUBLIC_URL + '/hotels/1737814029208.png',
+      image: '/hotels/1737814029208.png',
       costPerNightDollars: 15
     },
     {
@@ -140,7 +140,7 @@ export const hotels: IHotel[] = [
       address: "ул. Житная, 13",
       phone: "+7 (983) 555-44-33",
       email: "rye@spike.ru",
-      image: process.env.PUBLIC_URL + '/hotels/1737814103120.png',
+      image: '/hotels/1737814103120.png',
       costPerNightDollars: 15
     },
     {
@@ -151,7 +151,7 @@ export const hotels: IHotel[] = [
       address: "шоссе Золотое, 15",
       phone: "+7 (923) 333-22-11",
       email: "wheat@field.ru",
-      image: process.env.PUBLIC_URL + '/hotels/1737814141855.png',
+      image: '/hotels/1737814141855.png',
       costPerNightDollars: 15
     },
     {
@@ -162,7 +162,7 @@ export const hotels: IHotel[] = [
       address: "пер. Горизонтный, 17",
       phone: "+7 (903) 111-00-99",
       email: "horizon@travel.ru",
-      image: process.env.PUBLIC_URL + '/hotels/1737814541114.png',
+      image: '/hotels/1737814541114.png',
       costPerNightDollars: 15
     },
     {
@@ -173,7 +173,7 @@ export const hotels: IHotel[] = [
       address: "ул. Мечты, 19",
       phone: "+7 (961) 777-55-44",
       email: "dream@valley.ru",
-      image: process.env.PUBLIC_URL + '/hotels/1737814608769.png',
+      image: '/hotels/1737814608769.png',
       costPerNightDollars: 15
     },
     {
@@ -184,7 +184,7 @@ export const hotels: IHotel[] = [
       address: "шоссе Вольное, 21",
       phone: "+7 (911) 555-33-22",
       email: "free@winds.ru",
-      image: process.env.PUBLIC_URL + '/hotels/1737814687081.png',
+      image: '/hotels/1737814687081.png',
       costPerNightDollars: 15
     }
 ]

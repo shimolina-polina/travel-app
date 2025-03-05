@@ -1,4 +1,4 @@
-import { Dialog, DialogTitle, DialogContent, DialogContentText, TextField, DialogActions, Button, Link } from "@mui/material";
+import { TextField, Button, Link, Popover, Typography, Box } from "@mui/material";
 import React, { useReducer, useState } from "react";
 import { CustomButton } from "../atoms/atoms";
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
@@ -24,40 +24,47 @@ const userDataReducer = (state: IUserData, action: IUserDataAction): IUserData =
 const LoginButton = () => {
 
     const dispatch = useDispatch();
+
     const isAuthenticated: boolean = useSelector((state: RootState) => state.authReducer.isAuthenticated);
+
+    const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+    
+    const handleClick = (event?: React.MouseEvent<HTMLElement>) => {
+      if (event) {
+        setAnchorEl(event.currentTarget);
+      }
+    };
+    
+    const handleClose = () => {
+        setAnchorEl(null);
+    };
+    
+    const isLoginDialogOpen = Boolean(anchorEl);
 
     const [userData, setUserData] = useReducer(userDataReducer, {
         login: "",
         password: ""
       })
 
-    const [isLoginDialogOpen, setIsLoginDialogOpen] = useState<boolean>(false);
       
-    const handleLoginOpen = () => {
-        setIsLoginDialogOpen(true);
-    }
-
     const handleLogout = () => {
       dispatch(setIsAuthenticated(false))
     }
     
-    const handleLoginClose = () => {
-        setIsLoginDialogOpen(false);
-    };
     
-      const handleLogin = () => {
-        dispatch(setIsAuthenticated(true))
-        setIsLoginDialogOpen(false);
+    const handleLogin = () => {
+      dispatch(setIsAuthenticated(true))
+      handleClose();
     };
 
     return (
-        <>
+        <Box>
         {!isAuthenticated? 
         <CustomButton 
           color="#374785" 
           startIcon={<AccountCircleIcon />} 
           endIcon={isLoginDialogOpen? <ArrowDropUpIcon /> : <ArrowDropDownIcon/>} 
-          onClick={handleLoginOpen}
+          onClick={handleClick}
         >
             Войти
         </CustomButton>
@@ -69,37 +76,62 @@ const LoginButton = () => {
             Выйти
         </CustomButton>
       }
-      <Dialog open={isLoginDialogOpen} onClose={handleLoginClose}>
-          <DialogTitle>Вход</DialogTitle>
-          <DialogContent>
-              <DialogContentText>
-                  <b>Войти</b> или <Link href="/">Зарегистрироваться</Link>
-              </DialogContentText>
-              <TextField
-                  autoFocus
-                  margin="dense"
-                  id="login"
-                  label="Логин"
-                  type="text"
-                  fullWidth
-                  value={userData.login}
-                  onChange={(event) => dispatch({type: UserDataType.setLogin, payload: event.target.value})}
-              />
-              <TextField
-                  margin="dense"
-                  id="password"
-                  label="Пароль"
-                  type="password"
-                  fullWidth
-                  value={userData.password}
-                  onChange={(event) => dispatch({type: UserDataType.setPassword, payload: event.target.value})}
-              />
-          </DialogContent>
-          <DialogActions>
-              <Button onClick={handleLogin}>Войти</Button>
-          </DialogActions>
-      </Dialog>
-      </>
+      <Popover
+  open={isLoginDialogOpen}
+  anchorEl={anchorEl}
+  onClose={handleClose}
+  anchorOrigin={{
+    vertical: 'bottom',
+    horizontal: 'right',
+  }}
+  transformOrigin={{
+    vertical: 'top',
+    horizontal: 'right',
+  }}
+  slotProps={{
+    paper: {
+      sx: {
+        width: '450px'
+      },
+    }
+  }}
+>
+  <Box sx={{ padding: 2, display: 'flex', flexDirection: 'column', gap: 1 }}>
+    <Typography variant="h6" sx={{ fontWeight: 'bold' }}>Вход</Typography>
+    <Typography>
+      <b>Войти</b> или <Link href="/">Зарегистрироваться</Link>
+    </Typography>
+    <TextField
+      autoFocus
+      margin="none"
+      id="login"
+      label="Логин"
+      type="text"
+      fullWidth
+      value={userData.login}
+      onChange={(event) => dispatch({ type: UserDataType.setLogin, payload: event.target.value })}
+    />
+
+    <TextField
+      margin="none"
+      id="password"
+      label="Пароль"
+      type="password"
+      fullWidth
+      value={userData.password}
+      onChange={(event) => dispatch({ type: UserDataType.setPassword, payload: event.target.value })}
+    />
+
+    <CustomButton
+      onClick={handleLogin}
+      fullWidth
+      sx={{ height: 56, fontSize: '1rem', fontWeight: 'bold' }}
+    >
+      Войти
+    </CustomButton>
+  </Box>
+</Popover>
+      </Box>
     );
 };
 
